@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Car Loan Advisor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.1"></script> <!-- Kept for utility classes in non-MUI components like charts -->
+  <style>
+    /* Global reset and base styles */
+    html {
+      box-sizing: border-box;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: #101024; /* Default to dark theme bg, will be overridden by MUI theme in App.tsx */
+      color: #E0E0E0; 
+      line-height: 1.5; /* Improved default line height */
+    }
+    /* Custom scrollbar for dark theme (remains as default) */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1C1D3A; 
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #4A4B6A; 
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6A6B8A; 
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.1.0",
+    "@mui/material/": "https://esm.sh/@mui/material@^5.15.20/",
+    "@mui/material": "https://esm.sh/@mui/material@^5.15.20",
+    "@emotion/react/": "https://esm.sh/@emotion/react@^11.11.4/",
+    "@emotion/react": "https://esm.sh/@emotion/react@^11.11.4",
+    "@emotion/styled/": "https://esm.sh/@emotion/styled@^11.11.5/",
+    "@emotion/styled": "https://esm.sh/@emotion/styled@^11.11.5",
+    "@mui/icons-material/": "https://esm.sh/@mui/icons-material@^5.15.20/",
+    "@mui/icons-material": "https://esm.sh/@mui/icons-material@^5.15.20"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+  
+</body>
+</html>

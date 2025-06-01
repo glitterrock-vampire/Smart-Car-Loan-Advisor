@@ -1,0 +1,8 @@
+{
+  "name": "Smart Car Loan Advisor",
+  "description": "Get personalized car loan recommendations from local banks. Input your vehicle details, location, and financial profile to find the best loan options with our smart advisor.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "prompt": ""
+}

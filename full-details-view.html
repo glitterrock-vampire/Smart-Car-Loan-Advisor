@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Recommendation Details</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Tailwind is not strictly necessary here if all styling is MUI, but keeping for consistency if any utility classes are used by charts -->
+  <script src="https://cdn.tailwindcss.com/3.4.1"></script> 
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      line-height: 1.5;
+      /* Background color will be set by MUI ThemeProvider */
+    }
+    /* Custom scrollbar (optional, can be inherited from main app's CSS via theme) */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1C1D3A; /* Dark theme default, adjust if needed or let theme handle */
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #4A4B6A; /* Dark theme default */
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6A6B8A; /* Dark theme default */
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.1.0",
+    "@mui/material/": "https://esm.sh/@mui/material@^5.15.20/",
+    "@mui/material": "https://esm.sh/@mui/material@^5.15.20",
+    "@emotion/react/": "https://esm.sh/@emotion/react@^11.11.4/",
+    "@emotion/react": "https://esm.sh/@emotion/react@^11.11.4",
+    "@emotion/styled/": "https://esm.sh/@emotion/styled@^11.11.5/",
+    "@emotion/styled": "https://esm.sh/@emotion/styled@^11.11.5",
+    "@mui/icons-material/": "https://esm.sh/@mui/icons-material@^5.15.20/",
+    "@mui/icons-material": "https://esm.sh/@mui/icons-material@^5.15.20"
+  }
+}
+</script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/full-details-view.tsx"></script>
+</body>
+</html>
