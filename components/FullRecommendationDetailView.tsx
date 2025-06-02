@@ -127,26 +127,27 @@ const FullRecommendationDetailView: React.FC<FullRecommendationDetailViewProps> 
 
           {ownershipBreakdown.recurringFeeDetails && ownershipBreakdown.recurringFeeDetails.length > 0 && (
             <Box sx={{ mt: 3.5 }}>
-              <Divider sx={{mb:2.5}}>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2.5 }}>
+                <Divider sx={{ flexGrow: 1 }} />
                 <Chip 
-                  label="Estimated Annual Recurring Fees (Excl. Loan & Insurance)" 
+                  label="Recurring Fees (Excl. Loan & Insurance)" 
                   icon={<ReceiptLongIcon />} 
                   sx={{
-                    '& .MuiChip-label': {
-                      whiteSpace: 'normal',
-                      maxWidth: '100%',
-                      textOverflow: 'ellipsis',
-                      overflow: 'hidden',
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical',
+                    mx: 2,
+                    '& .MuiChip-icon': {
+                      color: 'inherit',
+                      opacity: 0.8,
+                      marginLeft: 1
                     },
-                    maxWidth: '100%',
-                    height: 'auto',
-                    py: 1,
+                    '& .MuiChip-label': {
+                      px: 1.5,
+                      fontSize: '0.875rem',
+                      fontWeight: 500
+                    }
                   }}
                 />
-              </Divider>
+                <Divider sx={{ flexGrow: 1 }} />
+              </Box>
               <List dense disablePadding>
                 {ownershipBreakdown.recurringFeeDetails.map((fee: RecurringFeeDetail, index: number) => (
                   <ListItem key={index} disableGutters sx={{flexDirection: 'column', alignItems: 'flex-start', mb: 1, p:1.5, border: `1px dashed ${theme.palette.divider}`, borderRadius:1 }}>
