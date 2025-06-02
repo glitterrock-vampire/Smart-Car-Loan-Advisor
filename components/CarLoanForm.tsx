@@ -450,7 +450,7 @@ const CarLoanForm: React.FC<CarLoanFormProps> = ({ onSubmit, loading, apiKeyPres
             </Box>
           )}
 
-          <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+          {/* <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
             <Button
               type="submit"
               variant="contained"
@@ -462,7 +462,46 @@ const CarLoanForm: React.FC<CarLoanFormProps> = ({ onSubmit, loading, apiKeyPres
             >
               {loading ? "Analyzing..." : "Get Loan Recommendations"}
             </Button>
+          </Box> */}
+          <Box
+            sx={{
+              mt: 4,
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+              px: { xs: 2, sm: 0 }, // margin on mobile so it doesn't touch the edge
+            }}
+          >
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="large"
+              disabled={loading || !country || (!userLocation.latitude && !userLocation.city_region)}
+              startIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
+              sx={{
+                width: { xs: '100%', sm: 'auto' },
+                maxWidth: '400px', // Optional: cap max width on desktop for aesthetics
+                mx: { xs: 2, sm: 0 }, // margin on mobile so it doesn't touch the edge
+                borderRadius: 2, // match your Paper/card for rounded corners
+                py: 1.5,
+                px: { xs: 0, sm: 4 },
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                whiteSpace: 'normal',
+                textAlign: 'center',
+                boxSizing: 'border-box',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                lineHeight: 1.3,
+              }}
+            >
+              {loading ? "Analyzing..." : "Get Loan Recommendations"}
+            </Button>
           </Box>
+
         </Box>
       </Paper>
 
