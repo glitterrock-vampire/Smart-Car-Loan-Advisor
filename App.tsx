@@ -66,7 +66,7 @@ const App: React.FC = () => {
       <CssBaseline enableColorScheme />
       <ThemeToggleButton currentMode={themeMode} toggleTheme={toggleTheme} />
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: 'background.default' }}>
-        <Header /> {/* Render Header */}
+        {/* <Header /> Render Header */}
         <HeroSection /> 
         <Container maxWidth="md" sx={{ py: { xs: 2, sm: 3, md: 4 }, flexGrow: 1 }}>
           <CarLoanForm onSubmit={handleFormSubmit} loading={loading} apiKeyPresent={apiKeyPresent} />
