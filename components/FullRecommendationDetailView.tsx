@@ -1,11 +1,11 @@
 
 
 import React from 'react';
-import { FullRecommendationDetailViewProps as OriginalFullRecommendationDetailViewProps, Recommendation, RecurringFeeDetail } from '../types';
+import { FullRecommendationDetailViewProps as OriginalFullRecommendationDetailViewProps, RecurringFeeDetail } from '../types';
 import OwnershipCostDonutChart from './OwnershipCostDonutChart';
 import YearlyBreakdownChart from './YearlyBreakdownChart';
 import {
-  Container, Paper, Typography, Box, Grid, List, ListItem, ListItemIcon, ListItemText, Divider, Button, Link, Chip, useTheme, Alert, TypographyProps, SvgIconProps, useMediaQuery
+  Container, Paper, Typography, Box, Grid, List, ListItem, ListItemIcon, ListItemText, Divider, Button, Chip, useTheme, Alert, TypographyProps, SvgIconProps, useMediaQuery
 } from '@mui/material';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import PaymentsIcon from '@mui/icons-material/Payments';
@@ -30,7 +30,7 @@ interface FullRecommendationDetailViewProps extends OriginalFullRecommendationDe
 }
 
 const InfoRow: React.FC<{ label: string; value: string | number | React.ReactNode; icon?: React.ReactNode; currency?: string; typographyVariant?: TypographyProps['variant']; valueColor?: string }> = ({ label, value, icon, currency, typographyVariant = "body1", valueColor }) => {
-  const theme = useTheme();
+  // const theme = useTheme(); // Not needed here, theme is used in parent
   const displayValue = typeof value === 'number' && currency ? new Intl.NumberFormat(undefined, { style: 'currency', currency: currency, minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value) : value;
   return (
     <Grid container spacing={1} sx={{ mb: 1.5, alignItems: 'flex-start' }}>

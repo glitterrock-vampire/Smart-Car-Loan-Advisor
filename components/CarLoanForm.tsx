@@ -1,22 +1,23 @@
 
 
+
 import React, { useState, useCallback, useEffect } from 'react';
 import {
-  UserInput, Vehicle, UserContext, UserLocation, UserProfile, UserPreferences,
+  UserInput, Vehicle, UserLocation, UserProfile, UserPreferences,
   SupportedCarType, CreditScoreTier, IncomeRange, LoanPrioritization, CarLoanFormProps
 } from '../types';
 import {
   SUPPORTED_CAR_TYPES_OPTIONS, CREDIT_SCORE_TIER_OPTIONS,
   INCOME_TIER_CURRENCY_EXAMPLES, LOAN_PRIORITIZATION_OPTIONS, LOAN_TERM_OPTIONS,
   YEAR_OPTIONS, DEFAULT_COUNTRY_CODE, SUPPORTED_COUNTRIES_OPTIONS,
-  COUNTRY_CURRENCY_MAP, COUNTRY_CITY_MAP, CURRENT_YEAR
+  COUNTRY_CURRENCY_MAP, COUNTRY_CITY_MAP
 } from '../constants';
 import { getCurrentLocation, Coordinates } from '../services/locationService';
 import ErrorDisplay from './ErrorDisplay';
 
 import {
   Box, Button, TextField, Select, MenuItem, FormControl, InputLabel, Grid,
-  Paper, Typography, Slider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Autocomplete, Alert, useTheme, useMediaQuery, FormHelperText, CircularProgress, InputAdornment, SxProps, Theme
+  Paper, Typography, Slider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Autocomplete, Alert, useTheme, useMediaQuery, FormHelperText, CircularProgress, InputAdornment
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
@@ -28,7 +29,7 @@ import TuneIcon from '@mui/icons-material/Tune';
 
 const CarLoanForm: React.FC<CarLoanFormProps> = ({ onSubmit, loading, apiKeyPresent }) => {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  // const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm')); // Unused
 
   const [vehicle, setVehicle] = useState<Partial<Vehicle>>({ year: YEAR_OPTIONS[0], type: SupportedCarType.SEDAN, cost: undefined, model: '' });
   const [userLocation, setUserLocation] = useState<Partial<UserLocation>>({ city_region: '' });
@@ -102,7 +103,7 @@ const CarLoanForm: React.FC<CarLoanFormProps> = ({ onSubmit, loading, apiKeyPres
   }, [country, userLocation.latitude, userLocation.longitude, userLocation.city_region, locationStatus, apiKeyPresent, isLocationDialogOpen, openLocationDialog]);
 
 
-  const handleDialogCityChange = (event: React.SyntheticEvent, newValue: { value: string; label: string } | string | null) => {
+  const handleDialogCityChange = (_event: React.SyntheticEvent, newValue: { value: string; label: string } | string | null) => {
     if (newValue && dialogCountry) {
       let cityToSet = '';
       if (typeof newValue === 'string') {
@@ -369,7 +370,7 @@ const CarLoanForm: React.FC<CarLoanFormProps> = ({ onSubmit, loading, apiKeyPres
                     <Grid item xs={8} sm={9}>
                         <Slider
                             value={userProfile.desiredDownPaymentPercent || 0}
-                            onChange={(e, newValue) => setUserProfile(p => ({ ...p, desiredDownPaymentPercent: newValue as number }))}
+                            onChange={(_e, newValue) => setUserProfile(p => ({ ...p, desiredDownPaymentPercent: newValue as number }))}
                             aria-labelledby="down-payment-slider-label"
                             valueLabelDisplay="auto"
                             min={0}
@@ -501,7 +502,7 @@ const CarLoanForm: React.FC<CarLoanFormProps> = ({ onSubmit, loading, apiKeyPres
               options={cityOptionsForDialog}
               getOptionLabel={(option) => typeof option === 'string' ? option : option.label}
               value={dialogCityInput ? cityOptionsForDialog.find(opt => opt.value === dialogCityInput) || dialogCityInput : null}
-              onInputChange={(event, newInputValue) => {
+              onInputChange={(_event, newInputValue) => {
                 setDialogCityInput(newInputValue);
               }}
               onChange={handleDialogCityChange}

@@ -1,10 +1,10 @@
 
 
 import React, { useState } from 'react';
-import { Recommendation, CompactLoanCardProps } from '../types';
+import { CompactLoanCardProps } from '../types';
 import FullRecommendationDetailView from './FullRecommendationDetailView'; // To render detailed content
 import {
-  Card, CardContent, Typography, Button, Box, Grid, Paper, Chip, Link, useTheme, alpha,
+  Card, CardContent, Typography, Button, Box, Grid, Paper, Chip, useTheme, alpha,
   Accordion, AccordionSummary, AccordionDetails
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';

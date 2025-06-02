@@ -1,8 +1,9 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { Recommendation } from '../types';
 import CompactLoanCard from './CompactLoanCard';
-import { Box, IconButton, Slide, Typography, MobileStepper, Button, useTheme } from '@mui/material';
+import { Box, IconButton, Slide, MobileStepper, Button, useTheme } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 

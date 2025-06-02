@@ -41,6 +41,15 @@ export const fetchLoanRecommendations = async (userInput: UserInput): Promise<Ge
       },
     });
 
+    if (typeof response.text !== 'string') {
+      console.error("AI response missing or invalid text content. Raw response object:", response);
+      // It's important to see what the actual response object looks like if text is not a string.
+      // For example, it might be response.response.text() if the SDK version or usage is different,
+      // but the guidelines strictly say response.text.
+      // This error indicates a deviation or an unexpected response structure.
+      throw new Error("AI response is empty or missing text content, despite requesting JSON.");
+    }
+    
     let jsonStr = response.text.trim();
 
     // Remove BOM if present (Byte Order Mark)
@@ -109,7 +118,8 @@ export const fetchLoanRecommendations = async (userInput: UserInput): Promise<Ge
           error.message.startsWith("AI response does not appear to be a valid JSON object") || 
           error.message.startsWith("AI response is not in the expected format") ||
           error.message.includes("Proxying failed") || // Catching the proxy error if it bubbles up
-          error.message.includes("ReadableStream uploading is not supported")) { // Catching the specific detail
+          error.message.includes("ReadableStream uploading is not supported") || // Catching the specific detail
+          error.message.startsWith("AI response is empty or missing text content")) { 
         throw error;
       }
       throw new Error(`Gemini API request failed: ${error.message}`);

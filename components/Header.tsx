@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AppBar, Toolbar, Typography, Box, useTheme } from '@mui/material';
+import { AppBar, Toolbar, Typography, useTheme } from '@mui/material';
 import CarIcon from './CarIcon'; // Assuming CarIcon is appropriate for the header
 import { APP_TITLE } from '../constants';
 

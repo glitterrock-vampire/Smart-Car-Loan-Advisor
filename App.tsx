@@ -10,7 +10,7 @@ import ErrorDisplay from './components/ErrorDisplay';
 import HeroSection from './components/HeroSection';
 import ThemeToggleButton from './components/ThemeToggleButton';
 // YearlyBreakdownChart is no longer imported here for a modal
-import { UserInput, Recommendation, GeminiApiResponse } from './types'; // Recommendation type is still needed
+import { UserInput, GeminiApiResponse } from './types'; // Recommendation type is still needed
 import { fetchLoanRecommendations, getApiKeyStatus } from './services/geminiService';
 import { APP_TITLE } from './constants';
 import { createAppTheme } from './theme'; // Import shared theme creation function

@@ -1,5 +1,6 @@
 
 // Module augmentation for custom theme properties
+// These MUST be at the top of the file, before any imports, to ensure they are correctly processed.
 declare module '@mui/material/styles' {
   interface PaletteColor {
     lighter?: string;
