@@ -496,6 +496,8 @@ const CarLoanForm: React.FC<CarLoanFormProps> = ({ onSubmit, loading, apiKeyPres
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: 'vertical',
                 lineHeight: 1.3,
+                alignSelf: 'center',
+
               }}
             >
               {loading ? "Analyzing..." : "Get Loan Recommendations"}
