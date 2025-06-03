@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ThemeProvider, CssBaseline, Container, Box, Typography, Paper, List, ListItem,ListItemIcon, ListItemText, Grow } from '@mui/material';
 // Removed Dialog related imports for yearly breakdown modal
@@ -7,7 +6,6 @@ import CarLoanForm from './components/CarLoanForm';
 import RecommendationsDisplay from './components/RecommendationsDisplay';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorDisplay from './components/ErrorDisplay';
-import HeroSection from './components/HeroSection';
 import ThemeToggleButton from './components/ThemeToggleButton';
 import { UserInput, GeminiApiResponse } from './types'; // Recommendation type is still needed
 import { fetchLoanRecommendations, getApiKeyStatus } from './services/geminiService';
@@ -60,7 +58,7 @@ const App: React.FC = () => {
       <CssBaseline enableColorScheme />
       <ThemeToggleButton currentMode={themeMode} toggleTheme={toggleTheme} />
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: 'background.default' }}>
-        <HeroSection /> 
+        
         <Container maxWidth="md" sx={{ py: { xs: 2, sm: 3, md: 4 }, flexGrow: 1 }}>
           <CarLoanForm onSubmit={handleFormSubmit} loading={loading} apiKeyPresent={apiKeyPresent} />
           
