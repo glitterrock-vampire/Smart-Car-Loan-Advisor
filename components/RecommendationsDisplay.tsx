@@ -1,15 +1,11 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { Recommendation } from '../types';
 import CompactLoanCard from './CompactLoanCard';
-import { Box, IconButton, Slide, MobileStepper, Button, useTheme } from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Box, Slide, useTheme, Button } from '@mui/material';
+
 
 interface RecommendationsDisplayProps {
   recommendations: Recommendation[];
-  // onOpenYearlyBreakdownModal prop removed
 }
 
 const RecommendationsDisplay: React.FC<RecommendationsDisplayProps> = ({ recommendations }) => {
@@ -43,11 +39,10 @@ const RecommendationsDisplay: React.FC<RecommendationsDisplayProps> = ({ recomme
   const handleBack = () => {
     handleSlideChange(Math.max(activeStep - 1, 0));
   };
-  
+
   const handleDotClick = (step: number) => {
     handleSlideChange(step);
   };
-
 
   if (!recommendations || maxSteps === 0) {
     return null;
@@ -63,9 +58,9 @@ const RecommendationsDisplay: React.FC<RecommendationsDisplayProps> = ({ recomme
         mt: theme.spacing(1) 
       }}>
         <Box sx={{ maxWidth: {xs: '100%', sm: '480px', md: '460px'}, width: '100%'}}>
-          <CompactLoanCard
-            recommendation={recommendations[0]}
-            // onOpenYearlyBreakdownModal prop removed
+          <CompactLoanCard 
+            recommendation={recommendations[0]} 
+            showNavigation={false}
           />
         </Box>
       </Box>
@@ -81,38 +76,19 @@ const RecommendationsDisplay: React.FC<RecommendationsDisplayProps> = ({ recomme
         width: '100%', 
         maxWidth: { xs: '100%', sm: '620px', md: '600px' }, 
         position: 'relative',
-        minHeight: {xs: '560px', sm: '580px'}, 
-        px: { xs: theme.spacing(4), sm: theme.spacing(5) } 
+        minHeight: {xs: '520px', sm: '540px'}, 
+        px: { xs: theme.spacing(2), sm: theme.spacing(3) } 
       }}>
-        <IconButton
-          onClick={handleBack}
-          disabled={activeStep === 0}
-          aria-label="previous recommendation"
-          sx={{ 
-            position: 'absolute', 
-            left: { xs: theme.spacing(0.5), sm: theme.spacing(1) }, 
-            top: '50%', 
-            transform: 'translateY(-50%)',
-            zIndex: 1,
-            color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main,
-            '&:disabled': { color: theme.palette.action.disabled }
-          }}
-        >
-          <ArrowBackIosNewIcon fontSize="medium" />
-        </IconButton>
-
         <Box sx={{ 
             width: '100%', 
             maxWidth: { xs: '100%', sm: '480px', md: '460px' }, 
             mx: 'auto', 
             overflow: 'hidden', 
-            position: 'relative', 
-            // minHeight removed to allow card to grow
-            display: 'flex', // Added for centering card if it's smaller than container
-            alignItems: 'flex-start', // Align card to top
-            justifyContent: 'center' // Center card horizontally
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'center'
         }}>
-           {/* Render only the active card */}
           {recommendations[activeStep] && (
             <Slide
               direction={slideDirection}
@@ -121,44 +97,20 @@ const RecommendationsDisplay: React.FC<RecommendationsDisplayProps> = ({ recomme
               unmountOnExit
               timeout={{ enter: 300, exit: 250 }}
             >
-              <Box sx={{width: '100%'}}> {/* Ensure card takes full width of its designated area */}
-                <CompactLoanCard
-                  recommendation={recommendations[activeStep]}
-                  // onOpenYearlyBreakdownModal prop removed
+              <Box sx={{width: '100%'}}>
+                <CompactLoanCard 
+                  recommendation={recommendations[activeStep]} 
+                  onPrev={activeStep > 0 ? handleBack : undefined}
+                  onNext={activeStep < maxSteps - 1 ? handleNext : undefined}
+                  showNavigation={true}
                 />
               </Box>
             </Slide>
           )}
         </Box>
-
-        <IconButton
-          onClick={handleNext}
-          disabled={activeStep === maxSteps - 1}
-          aria-label="next recommendation"
-          sx={{ 
-            position: 'absolute', 
-            right: { xs: theme.spacing(0.5), sm: theme.spacing(1) }, 
-            top: '50%', 
-            transform: 'translateY(-50%)',
-            zIndex: 1,
-            color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main,
-            '&:disabled': { color: theme.palette.action.disabled }
-          }}
-        >
-          <ArrowForwardIosIcon fontSize="medium" />
-        </IconButton>
       </Box>
 
-      <MobileStepper
-        steps={maxSteps}
-        position="static" 
-        activeStep={activeStep}
-        variant="dots"
-        backButton={<Box sx={{ width: theme.spacing(5) }} />} 
-        nextButton={<Box sx={{ width: theme.spacing(5) }} />} 
-        sx={{ mt: theme.spacing(1), width: 'auto' }}
-      />
-       <Box sx={{ display: 'flex', justifyContent: 'center', mt: `-${theme.spacing(4)}`, mb: theme.spacing(0.5), height: theme.spacing(3), zIndex: 2, position:'relative' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: `-${theme.spacing(4)}`, mb: theme.spacing(0.5), height: theme.spacing(3), zIndex: 2, position:'relative' }}>
         {Array.from({ length: maxSteps }).map((_, index) => (
           <Button
             key={`dot-click-${index}`}

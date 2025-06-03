@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ThemeProvider, CssBaseline, Container, Box, Typography, Paper, List, ListItem,ListItemIcon, ListItemText, Grow } from '@mui/material';
 // Removed Dialog related imports for yearly breakdown modal
-import Header from './components/Header'; // Import Header
+// import Header from './components/Header'; // Import Header
 import CarLoanForm from './components/CarLoanForm';
 import RecommendationsDisplay from './components/RecommendationsDisplay';
 import LoadingSpinner from './components/LoadingSpinner';

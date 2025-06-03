@@ -1,11 +1,9 @@
-
-
 import React, { useState } from 'react';
 import { CompactLoanCardProps } from '../types';
-import FullRecommendationDetailView from './FullRecommendationDetailView'; // To render detailed content
+import FullRecommendationDetailView from './FullRecommendationDetailView';
 import {
   Card, CardContent, Typography, Button, Box, Grid, Paper, Chip, useTheme, alpha,
-  Accordion, AccordionSummary, AccordionDetails
+  Accordion, AccordionSummary, AccordionDetails, IconButton
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
@@ -13,7 +11,8 @@ import PaymentsIcon from '@mui/icons-material/Payments';
 import PercentIcon from '@mui/icons-material/Percent';
 import EventIcon from '@mui/icons-material/Event';
 import CalculateIcon from '@mui/icons-material/Calculate';
-
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const InfoItem: React.FC<{ label: string; value: string | number | React.ReactNode; currency?: string; small?: boolean; noMarginBottom?: boolean; icon?: React.ReactNode; valueColor?: string }> = ({ label, value, currency, small, noMarginBottom, icon, valueColor }) => {
   const theme = useTheme();
@@ -32,8 +31,12 @@ const InfoItem: React.FC<{ label: string; value: string | number | React.ReactNo
   );
 };
 
-
-const CompactLoanCard: React.FC<CompactLoanCardProps> = ({ recommendation }) => {
+const CompactLoanCard: React.FC<CompactLoanCardProps & { onPrev?: () => void; onNext?: () => void; showNavigation?: boolean }> = ({ 
+  recommendation, 
+  onPrev, 
+  onNext,
+  showNavigation = false 
+}) => {
   const theme = useTheme();
   const [expanded, setExpanded] = useState(false);
 
@@ -50,7 +53,6 @@ const CompactLoanCard: React.FC<CompactLoanCardProps> = ({ recommendation }) => 
     (loanDetails.estimatedMonthlyPayment || 0) +
     ((insuranceRecommendation?.estimatedAnnualPremium || 0) / 12) +
     ((ownershipBreakdown?.estimatedAnnualRecurringFeesTotal || 0) / 12);
-
 
   const formatCurrency = (amount: number | undefined, currencyCode: string | undefined) => {
     if (amount === undefined || !currencyCode) return 'N/A';
@@ -71,12 +73,89 @@ const CompactLoanCard: React.FC<CompactLoanCardProps> = ({ recommendation }) => 
         ...(expanded && { boxShadow: theme.shadows[8] })
     }}>
       <CardContent sx={{ flexGrow: 1, p: {xs: theme.spacing(2), sm: theme.spacing(2.5)}, pb: expanded ? theme.spacing(1) : {xs: theme.spacing(2), sm: theme.spacing(2.5)}  }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-          <Typography variant="h5" component="h3" sx={{ fontWeight: 'bold', color: 'text.primary', flexGrow: 1, pr:1 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, gap: 1 }}>
+          <Typography variant="h5" component="h3" sx={{ 
+            fontWeight: 'bold', 
+            color: 'text.primary', 
+            flexGrow: 1, 
+            pr: 1,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}>
             {bankName}
           </Typography>
-          <Chip label={`Rank #${rank}`} color="primary" variant="filled" size="small" sx={{ backgroundColor: cardKeyColor, color: theme.palette.getContrastText(cardKeyColor), fontWeight:'bold' }}/>
+          
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            {showNavigation && onPrev && (
+              <IconButton 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onPrev();
+                }}
+                size="small"
+                sx={{ 
+                  p: 0.5,
+                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: theme.palette.primary.main,
+                    backgroundColor: 'transparent'
+                  },
+                  '&.Mui-disabled': {
+                    color: 'transparent'
+                  }
+                }}
+                disabled={!onPrev}
+              >
+                <ChevronLeftIcon fontSize="small" />
+              </IconButton>
+            )}
+            
+            <Chip 
+              label={`#${rank}`} 
+              color="primary" 
+              variant="filled" 
+              size="small" 
+              sx={{ 
+                backgroundColor: cardKeyColor, 
+                color: theme.palette.getContrastText(cardKeyColor), 
+                fontWeight: 'bold',
+                minWidth: '36px',
+                borderRadius: '4px',
+                '& .MuiChip-label': {
+                  px: 0.5,
+                  fontSize: '0.75rem',
+                  fontWeight: 600
+                }
+              }}
+            />
+            
+            {showNavigation && onNext && (
+              <IconButton 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onNext();
+                }}
+                size="small"
+                sx={{ 
+                  p: 0.5,
+                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: theme.palette.primary.main,
+                    backgroundColor: 'transparent'
+                  },
+                  '&.Mui-disabled': {
+                    color: 'transparent'
+                  }
+                }}
+                disabled={!onNext}
+              >
+                <ChevronRightIcon fontSize="small" />
+              </IconButton>
+            )}
+          </Box>
         </Box>
+        
         <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 2.5, fontWeight: 500 }}>
           {productName}
         </Typography>
@@ -147,7 +226,7 @@ const CompactLoanCard: React.FC<CompactLoanCardProps> = ({ recommendation }) => 
             borderTop: expanded ? `1px solid ${theme.palette.divider}`: 'none',
             '&:before': { display: 'none' }, 
             '&.Mui-expanded': { marginTop: 0, marginBottom: 0},
-            borderBottomLeftRadius: theme.shape.borderRadius * 1.5, // Match card border radius
+            borderBottomLeftRadius: theme.shape.borderRadius * 1.5,
             borderBottomRightRadius: theme.shape.borderRadius * 1.5,
         }}
         id={`panel${rank}-content`}
@@ -155,16 +234,9 @@ const CompactLoanCard: React.FC<CompactLoanCardProps> = ({ recommendation }) => 
       >
         <AccordionSummary sx={{display: 'none'}} /> 
         <AccordionDetails sx={{ p: {xs: 0, sm: 0}, pt: {xs:1, sm:1} }}> 
-          {/* FullRecommendationDetailView expects a "recommendation" prop.
-              It's designed to be self-contained and can be used directly.
-              The container/paper within FullRecommendationDetailView might need adjustment
-              if we want it to blend seamlessly into the accordion details area.
-              For now, let's render it directly. We might need to pass a flag
-              to FullRecommendationDetailView to adjust its top-level Paper elevation/padding if needed.
-           */}
-           <Box sx={{px: {xs: 2, sm: 2.5}, pb: {xs: 2, sm: 2.5} }}>
-             <FullRecommendationDetailView recommendation={recommendation} isEmbedded />
-           </Box>
+          <Box sx={{px: {xs: 2, sm: 2.5}, pb: {xs: 2, sm: 2.5} }}>
+            <FullRecommendationDetailView recommendation={recommendation} isEmbedded />
+          </Box>
         </AccordionDetails>
       </Accordion>
     </Card>

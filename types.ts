@@ -1,4 +1,3 @@
-
 export enum SupportedCarType {
   SEDAN = "Sedan",
   SUV = "SUV",
@@ -143,7 +142,9 @@ export interface CarLoanFormProps {
 
 export interface CompactLoanCardProps {
   recommendation: Recommendation;
-  // onOpenYearlyBreakdownModal is removed
+  onPrev?: () => void;
+  onNext?: () => void;
+  showNavigation?: boolean;
 }
 
 export interface RecommendationsDisplayProps {
