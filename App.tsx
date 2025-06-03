@@ -9,7 +9,6 @@ import LoadingSpinner from './components/LoadingSpinner';
 import ErrorDisplay from './components/ErrorDisplay';
 import HeroSection from './components/HeroSection';
 import ThemeToggleButton from './components/ThemeToggleButton';
-// YearlyBreakdownChart is no longer imported here for a modal
 import { UserInput, GeminiApiResponse } from './types'; // Recommendation type is still needed
 import { fetchLoanRecommendations, getApiKeyStatus } from './services/geminiService';
 import { APP_TITLE } from './constants';
@@ -23,10 +22,6 @@ const App: React.FC = () => {
   const [recommendations, setRecommendations] = useState<GeminiApiResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
-  // Removed state and handlers for YearlyBreakdownModal
-  // const [isBreakdownModalOpen, setIsBreakdownModalOpen] = useState(false);
-  // const [selectedRecommendationForModal, setSelectedRecommendationForModal] = useState<Recommendation | null>(null);
 
   useEffect(() => {
     setApiKeyPresent(getApiKeyStatus());
@@ -59,14 +54,12 @@ const App: React.FC = () => {
     }
   };
 
-  // Removed handleOpenYearlyBreakdownModal and handleCloseYearlyBreakdownModal
 
   return (
     <ThemeProvider theme={activeTheme}>
       <CssBaseline enableColorScheme />
       <ThemeToggleButton currentMode={themeMode} toggleTheme={toggleTheme} />
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: 'background.default' }}>
-        {/* <Header /> Render Header */}
         <HeroSection /> 
         <Container maxWidth="md" sx={{ py: { xs: 2, sm: 3, md: 4 }, flexGrow: 1 }}>
           <CarLoanForm onSubmit={handleFormSubmit} loading={loading} apiKeyPresent={apiKeyPresent} />
@@ -87,7 +80,6 @@ const App: React.FC = () => {
                 </Typography>
                 <RecommendationsDisplay 
                     recommendations={recommendations.recommendations} 
-                    // onOpenYearlyBreakdownModal prop is removed
                 />
               </Box>
             </Grow>
@@ -117,7 +109,6 @@ const App: React.FC = () => {
           </Typography>
         </Box>
       </Box>
-      {/* Removed YearlyBreakdownChart Dialog */}
     </ThemeProvider>
   );
 };

@@ -142,9 +142,7 @@ export interface CarLoanFormProps {
 
 export interface CompactLoanCardProps {
   recommendation: Recommendation;
-  onPrev?: () => void;
-  onNext?: () => void;
-  showNavigation?: boolean;
+  // onOpenYearlyBreakdownModal is removed
 }
 
 export interface RecommendationsDisplayProps {
