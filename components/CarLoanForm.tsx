@@ -17,7 +17,7 @@ import ErrorDisplay from './ErrorDisplay';
 
 import {
   Box, Button, TextField, Select, MenuItem, FormControl, InputLabel, Grid,
-  Paper, Typography, Slider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Autocomplete, Alert, useTheme, useMediaQuery, FormHelperText, CircularProgress, InputAdornment
+  Paper, Typography, Slider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Autocomplete, Alert, useTheme, FormHelperText, CircularProgress, InputAdornment
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
@@ -235,7 +235,7 @@ const CarLoanForm: React.FC<CarLoanFormProps> = ({ onSubmit, loading, apiKeyPres
     const countryName = SUPPORTED_COUNTRIES_OPTIONS.find(c => c.value === country)?.label || country;
     locationDisplay = { text: `${userLocation.city_region}, ${countryName}`, color: theme.palette.text.primary, icon: <LocationOnIcon sx={{fontSize: '1.2rem'}} /> };
   } else if (country) { // Country selected, but no city/GPS
-     locationDisplay = { text: `Set city for ${SUPPORTED_COUNTRIES_OPTIONS.find(c => c.value === country)?.label || country}`, color: theme.palette.text.secondary, icon: <EditLocationIcon sx={{fontSize: '1.2rem'}} /> };
+     locationDisplay = { text: `Set city for ${SUPPORTED_COUNTRIES_OPTIONS.find(c => c.value === country)?.label || country}`, color: theme.palette.text.secondary, icon: <EditLocationIcon sx={{fontSize: '1.2rem'}} />};
   }
 
 
@@ -251,15 +251,41 @@ const CarLoanForm: React.FC<CarLoanFormProps> = ({ onSubmit, loading, apiKeyPres
     <>
       <Paper elevation={theme.shape.borderRadius > 0 ? 2 : 0} sx={{ p: { xs: 2, sm: 3, md: 4 }, borderRadius: theme.shape.borderRadius * 1.5 }}>
         <Box component="form" onSubmit={handleSubmit} noValidate>
-          {/* Location Setup Button - Placed prominently */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, p: 1.5, border: `1px solid ${theme.palette.divider}`, borderRadius: 1.5, cursor:'pointer' }} onClick={openLocationDialog}>
-            <Box sx={{display:'flex', alignItems:'center'}}>
-                {React.cloneElement(locationDisplay.icon, { sx: { mr: 1.5, color: locationDisplay.color, fontSize: '1.4rem' } })}
-                <Typography variant="subtitle1" sx={{color: locationDisplay.color, fontWeight: 500}}>
-                {locationDisplay.text}
-                </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              mb: { xs: 2, sm: 3 },           // Less margin on mobile
+              p: { xs: 1, sm: 1.5 },          // Less padding on mobile
+              minHeight: { xs: 36, sm: 48 },  // Smaller height on mobile
+              borderRadius: 1.5,
+              cursor: 'pointer',
+              backgroundColor: theme.palette.background.paper,
+              boxShadow: 1,
+              transition: 'box-shadow 0.2s',
+              '&:hover': { boxShadow: 3 },
+              maxWidth: { xs: 320, sm: 420 }, // <--- Limit width on mobile and desktop
+              mx: 'auto',                     // <--- Center horizontally
+              width: '100%',
+            }}
+            onClick={openLocationDialog}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              {React.cloneElement(locationDisplay.icon, {
+                sx: { mr: { xs: 1, sm: 1.5 }, color: locationDisplay.color, fontSize: { xs: '1.1rem', sm: '1.4rem' } },
+               })}
+            <Typography
+              variant="subtitle1"
+              sx={{
+                color: locationDisplay.color,
+                fontWeight: 500,
+                fontSize: { xs: '1rem', sm: '1.25rem' }, // Smaller text on mobile
+              }}
+            >
+              {locationDisplay.text}
+            </Typography>
             </Box>
-            <EditLocationIcon color="action" />
           </Box>
           {locationError && !isLocationDialogOpen && <Alert severity="warning" sx={{mb:2}}>{locationError}</Alert>}
 
@@ -563,7 +589,7 @@ const CarLoanForm: React.FC<CarLoanFormProps> = ({ onSubmit, loading, apiKeyPres
             variant="outlined"
             color="primary"
             startIcon={isFetchingGPS ? <CircularProgress size={20} /> : <MyLocationIcon />}
-            onClick={() => attemptAutoGPS(dialogCountry)}
+            onClick={() => attemptAutoGPS(dialogCountry)} 
             disabled={isFetchingGPS || !dialogCountry}
             fullWidth
             sx={{py: 1.25}}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SmartCarLoanAdvisor</string>
+    <string name="title_activity_main">SmartCarLoanAdvisor</string>
+    <string name="package_name">com.example.smartcarloanadvisor</string>
+    <string name="custom_url_scheme">com.example.smartcarloanadvisor</string>
+</resources>
